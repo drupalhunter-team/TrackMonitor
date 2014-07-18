@@ -1,0 +1,884 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// French (France) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_FRA)
+#ifdef _WIN32
+LANGUAGE LANG_FRENCH, SUBLANG_FRENCH
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "#include ""OXScrollWnd.rc""\r\n"
+    "\r\n"
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_FRA)\r\n"
+    "LANGUAGE 12, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#include ""res\\OngTV.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#include ""afxprint.rc""   // printing/print preview resources\r\n"
+    "#if !defined(_AFXDLL)\r\n"
+    "#include ""afxribbon.rc""          // MFC ribbon and control bar resources\r\n"
+    "#endif\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,1,0
+ PRODUCTVERSION 1,0,1,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080004e4"
+        BEGIN
+            VALUE "Comments", "OngTV"
+            VALUE "CompanyName", "Adetel Group"
+            VALUE "FileDescription", "OngTV.exe"
+            VALUE "FileVersion", "1.0.1"
+            VALUE "InternalName", "OngTV.exe"
+            VALUE "LegalCopyright", "(c) Adetel Group 2014.  All rights reserved."
+            VALUE "OriginalFilename", "OngTV.exe"
+            VALUE "ProductName", "OngTV"
+            VALUE "ProductVersion", "1.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x800, 1252
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU 
+BEGIN
+    POPUP "&Quitter"
+    BEGIN
+        MENUITEM "&Quitter",                    ID_APP_EXIT
+    END
+    POPUP "&Affichage"
+    BEGIN
+        MENUITEM "Barre d'o&utils",             ID_VIEW_TOOLBAR
+        MENUITEM "Barre de s&tatut",            ID_VIEW_STATUS_BAR
+    END
+    POPUP "&Outils"
+    BEGIN
+        POPUP "script LUA"
+        BEGIN
+            MENUITEM "Nouveau script",              ID_NEW_LUASCRIPT
+            MENUITEM "Ouvrir un script",            ID_OPEN_LUASCRIPT
+        END
+    END
+    POPUP "Commandes utilisateur"
+    BEGIN
+        MENUITEM "User Command1",               ID_USER_CMD_BASE
+    END
+    POPUP "&Fenêtres"
+    BEGIN
+        MENUITEM "&Cascade",                    ID_WINDOW_CASCADE
+        MENUITEM "&Tile",                       ID_WINDOW_TILE_HORZ
+        MENUITEM "&Arranger",                   ID_WINDOW_ARRANGE
+    END
+    POPUP "&Aide"
+    BEGIN
+        MENUITEM "&A propos d'OngTV...",      ID_APP_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 543, 390
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "A propos d'OngTV"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,132,9,21,20
+    DEFPUSHBUTTON   "OK",IDOK,488,7,50,16,WS_GROUP
+    LTEXT           "",IDC_ABOUT_VERSION,164,10,219,21,SS_NOPREFIX
+    LTEXT           "",IDC_ABOUT_COMPONENTS,10,38,529,352
+END
+
+IDD_GET_VAL DIALOGEX 0, 0, 186, 66
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Valeur"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,24,45,50,14
+    PUSHBUTTON      "Annuler",IDCANCEL,100,45,50,14
+    EDITTEXT        IDC_EDIT_VALUE,53,20,117,14,ES_AUTOHSCROLL
+    LTEXT           "Valeur :",IDC_STATIC_VALUE,4,23,47,10,0,WS_EX_RIGHT
+END
+
+IDD_GET_VAL_ENUM DIALOGEX 0, 0, 186, 66
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Valeur"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,24,45,50,14
+    PUSHBUTTON      "Annuler",IDCANCEL,100,45,50,14
+    LTEXT           "Valeur :",IDC_STATIC,16,23,25,10
+    COMBOBOX        IDC_EDIT_VALUE,45,20,125,95,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_GET_VAL_FROM_LIST DIALOGEX 0, 0, 147, 81
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Choix d'une valeur"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,9,61,60,15
+    PUSHBUTTON      "Annuler",IDCANCEL,76,61,60,15
+    LISTBOX         IDC_LIST_VALUES,5,5,136,50,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_SCINTILLA_FINDDLGORD DIALOGEX 30, 73, 236, 79
+STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | DS_FIXEDSYS | DS_CONTEXTHELP | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Find"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    LTEXT           "Recherche :",-1,4,8,42,8
+    EDITTEXT        1152,47,7,128,12,ES_AUTOHSCROLL | WS_GROUP
+    CONTROL         "Mot entier &uniquement",1040,"Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,4,26,100,12
+    CONTROL         "Respecter la c&asse",1041,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,4,42,84,12
+    CONTROL         "&Expression régulière",IDC_REGULAR_EXPRESSION,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,4,58,83,12
+    GROUPBOX        "Direction",1072,107,26,68,28,WS_GROUP
+    CONTROL         "&Haut",1056,"Button",BS_AUTORADIOBUTTON | WS_GROUP,111,38,30,12
+    CONTROL         "&Bas",1057,"Button",BS_AUTORADIOBUTTON,145,38,26,12
+    DEFPUSHBUTTON   "&Suivant",IDOK,182,7,50,14,WS_GROUP
+    PUSHBUTTON      "Annuler",IDCANCEL,182,30,50,14
+END
+
+IDD_SCINTILLA_REPLACEDLGORD DIALOGEX 36, 44, 233, 92
+STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | DS_FIXEDSYS | DS_CONTEXTHELP | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Replace"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    LTEXT           "Recherche ",-1,4,9,48,8
+    EDITTEXT        1152,54,7,114,12,ES_AUTOHSCROLL | WS_GROUP
+    LTEXT           "Rem&placer par:",-1,4,26,48,8
+    EDITTEXT        1153,54,24,114,12,ES_AUTOHSCROLL | WS_GROUP
+    CONTROL         "Mot entier &uniquement",1040,"Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,5,44,104,12
+    CONTROL         "Respecter la c&asse",1041,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,61,84,12
+    CONTROL         "&Expression régulière",IDC_REGULAR_EXPRESSION,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,77,83,12
+    DEFPUSHBUTTON   "&Suivant",IDOK,174,4,54,14,WS_GROUP
+    PUSHBUTTON      "&Remplacer",1024,174,21,54,14
+    PUSHBUTTON      "Remplacer &tout",1025,174,38,54,14
+    PUSHBUTTON      "Annuler",IDCANCEL,174,55,54,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\OngTV.ico"
+IDR_LUATYPE             ICON                    "res\\lua-full.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_MAINFRAME           BITMAP                  "res\\MainToolbar.bmp"
+IDR_LUASCRIPT           BITMAP                  "res\\LuaScriptToolBar.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS 
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    "F",            ID_EDIT_FIND,           VIRTKEY, CONTROL, NOINVERT
+    "H",            ID_EDIT_REPLACE,        VIRTKEY, CONTROL, NOINVERT
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F3,          ID_EDIT_REPEAT,         VIRTKEY, NOINVERT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+IDR_LUATYPE ACCELERATORS 
+BEGIN
+    "G",            ID_LUASCRIPT_GOTO_LINE, VIRTKEY, CONTROL, NOINVERT
+    VK_F3,          ID_LUASCRIPT_CTRL_F3,   VIRTKEY, CONTROL, NOINVERT
+    VK_F3,          ID_LUASCRIPT_SHIFT_F3,  VIRTKEY, SHIFT, NOINVERT
+    VK_F5,          ID_LUASCRIPT_RUN,       VIRTKEY, NOINVERT
+    VK_F10,         ID_LUASCRIPT_RUN_TO_CURSOR, VIRTKEY, CONTROL, NOINVERT
+    VK_F11,         ID_LUASCRIPT_STEP_INTO, VIRTKEY, NOINVERT
+    VK_F11,         ID_LUASCRIPT_STEP_OUT,  VIRTKEY, SHIFT, NOINVERT
+    VK_F10,         ID_LUASCRIPT_STEP_OVER, VIRTKEY, NOINVERT
+    VK_F5,          ID_LUASCRIPT_STOP,      VIRTKEY, SHIFT, NOINVERT
+    VK_F9,          ID_LUASCRIPT_TOGGLE_BREAKPOINT, VIRTKEY, NOINVERT
+    VK_F2,          ID_OPTIONS_FIND_NEXTMARKER, VIRTKEY, NOINVERT
+    VK_F2,          ID_OPTIONS_FIND_PREVMARKER, VIRTKEY, SHIFT, NOINVERT
+    VK_F2,          ID_OPTIONS_TOGGLEMARKER, VIRTKEY, CONTROL, NOINVERT
+    VK_SPACE,       ID_LUASCRIPT_CTRL_SPACE, VIRTKEY, CONTROL, NOINVERT
+    VK_SPACE,       ID_LUASCRIPT_CTRL_SHIFT_SPACE, VIRTKEY, SHIFT, CONTROL, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DINA
+//
+
+IDR_DINA                DINA                    "res\\Dina.fon"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDR_MAINFRAME           "OngTV"
+END
+
+STRINGTABLE 
+BEGIN
+    AFX_IDS_APP_TITLE       "OngTV"
+    AFX_IDS_IDLEMESSAGE     "Prêt"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_INDICATOR_EXT        "EXT"
+    ID_INDICATOR_CAPS       "CAP"
+    ID_INDICATOR_NUM        "NUM"
+    ID_INDICATOR_SCRL       "SCRL"
+    ID_INDICATOR_OVR        "OVR"
+    ID_INDICATOR_REC        "REC"
+    ID_INDICATOR_CURR_MODE  " "
+    ID_INDICATOR_USER_LEVEL " "
+    ID_INDICATOR_CONNECTION_STATE " "
+END
+
+STRINGTABLE 
+BEGIN
+    ID_FILE_NEW             "Create a new document\nNew"
+    ID_FILE_OPEN            "Open an existing document\nOpen"
+    ID_FILE_CLOSE           "Close the active document\nClose"
+    ID_FILE_SAVE            "Save the active document\nSave"
+    ID_FILE_SAVE_AS         "Save the active document with a new name\nSave As"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_APP_ABOUT            "Display program information, version number and copyright\nAbout"
+    ID_APP_EXIT             "Quit the application; prompts to save documents\nExit"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_FILE_MRU_FILE1       "Open this document"
+    ID_FILE_MRU_FILE2       "Open this document"
+    ID_FILE_MRU_FILE3       "Open this document"
+    ID_FILE_MRU_FILE4       "Open this document"
+    ID_FILE_MRU_FILE5       "Open this document"
+    ID_FILE_MRU_FILE6       "Open this document"
+    ID_FILE_MRU_FILE7       "Open this document"
+    ID_FILE_MRU_FILE8       "Open this document"
+    ID_FILE_MRU_FILE9       "Open this document"
+    ID_FILE_MRU_FILE10      "Open this document"
+    ID_FILE_MRU_FILE11      "Open this document"
+    ID_FILE_MRU_FILE12      "Open this document"
+    ID_FILE_MRU_FILE13      "Open this document"
+    ID_FILE_MRU_FILE14      "Open this document"
+    ID_FILE_MRU_FILE15      "Open this document"
+    ID_FILE_MRU_FILE16      "Open this document"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_NEXT_PANE            "Switch to the next window pane\nNext Pane"
+    ID_PREV_PANE            "Switch back to the previous window pane\nPrevious Pane"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_WINDOW_NEW           "Open another window for the active document\nNew Window"
+    ID_WINDOW_ARRANGE       "Arrange icons at the bottom of the window\nArrange Icons"
+    ID_WINDOW_CASCADE       "Arrange windows so they overlap\nCascade Windows"
+    ID_WINDOW_TILE_HORZ     "Arrange windows as non-overlapping tiles\nTile Windows"
+    ID_WINDOW_TILE_VERT     "Arrange windows as non-overlapping tiles\nTile Windows"
+    ID_WINDOW_SPLIT         "Split the active window into panes\nSplit"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_EDIT_CLEAR           "Erase the selection\nErase"
+    ID_EDIT_CLEAR_ALL       "Erase everything\nErase All"
+    ID_EDIT_COPY            "Copy the selection and put it on the Clipboard\nCopy"
+    ID_EDIT_CUT             "Cut the selection and put it on the Clipboard\nCut"
+    ID_EDIT_FIND            "Find the specified text\nFind"
+    ID_EDIT_PASTE           "Insert Clipboard contents\nPaste"
+    ID_EDIT_REPEAT          "Repeat the last action\nRepeat"
+    ID_EDIT_REPLACE         "Replace specific text with different text\nReplace"
+    ID_EDIT_SELECT_ALL      "Select the entire document\nSelect All"
+    ID_EDIT_UNDO            "Undo the last action\nUndo"
+    ID_EDIT_REDO            "Redo the previously undone action\nRedo"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_VIEW_TOOLBAR         "Show or hide the toolbar\nToggle ToolBar"
+    ID_VIEW_STATUS_BAR      "Show or hide the status bar\nToggle StatusBar"
+END
+
+STRINGTABLE 
+BEGIN
+    AFX_IDS_SCSIZE          "Change the window size"
+    AFX_IDS_SCMOVE          "Change the window position"
+    AFX_IDS_SCMINIMIZE      "Reduce the window to an icon"
+    AFX_IDS_SCMAXIMIZE      "Enlarge the window to full size"
+    AFX_IDS_SCNEXTWINDOW    "Switch to the next document window"
+    AFX_IDS_SCPREVWINDOW    "Switch to the previous document window"
+    AFX_IDS_SCCLOSE         "Close the active window and prompts to save the documents"
+END
+
+STRINGTABLE 
+BEGIN
+    AFX_IDS_SCRESTORE       "Restore the window to normal size"
+    AFX_IDS_SCTASKLIST      "Activate Task List"
+    AFX_IDS_MDICHILD        "<none>"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_VIEW_TRACE           "Afficher/Masquer l'onglet traces\nAfficher/Masquer l'onglet traces"
+    ID_NEW_LUASCRIPT        "Nouveau script LUA\nNouveau script LUA"
+    ID_OPEN_LUASCRIPT       "Ouvrir un script LUA\nOuvrir un script LUA"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_LUASCRIPT_SAVE       "Sauver le script LUA\nSauver le script LUA"
+    ID_LUASCRIPT_SAVEAS     "Sauver le script LUA sous\nSauver le script LUA sous"
+    ID_LUASCRIPT_RUN        "Exécuter (F5)\nExécuter (F5)"
+    ID_LUASCRIPT_TOGGLE_BREAKPOINT 
+                            "Insérer/Enlever un point d'arrêt (F9)\nInsérer/Enlever un point d'arrêt (F9)"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_LUASCRIPT_STOP       "Stop (Shift+F5)\nStop (Shift+F5)"
+    ID_LUASCRIPT_BREAK      "Interrompre l'exécution\nInterrompre l'exécution"
+    ID_LUASCRIPT_STEP_INTO  "Pas à pas détaillé (F11)\nPas à pas détaillé (F11)"
+    ID_LUASCRIPT_STEP_OVER  "Pas à pas principal (F10)\nPas à pas principal (F10)"
+    ID_LUASCRIPT_STEP_OUT   "Sortir de la fonction (Shift+F11)\nSortir de la fonction (Shift+F11)"
+    ID_LUASCRIPT_RUN_TO_CURSOR 
+                            "Exécuter jusqu'au curseur (Ctrl+F10)\nExécuter jusqu'au curseur (Ctrl+F10)"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_VALUE               "Valeur"
+    STR_PROPERTY            "Propriété"
+    STR_NAME                "Nom"
+    STR_ADDRESS             "Adresse"
+    STR_SYMBOL              "Symbole"
+    STR_UNIT                "Unité"
+    STR_CODE                "Code"
+    STR_STATUS              "Statut"
+    STR_DATE_TIME           "Date/Heure"
+    STR_PROCESSOR           "Processeur"
+    STR_TYPE                "Type"
+    STR_FILM_NUM            "Film"
+    STR_SAMPLES_NB          "Echantillons"
+    STR_ARMING_DATE_TIME    "Date/Heure d'armement"
+    STR_ARMING_CAUSE        "Cause de l'armement"
+    STR_TRIGGERING_DATE_TIME "Date/heure du déclenchement"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_TRIGGERING_CAUSE    "Cause du déclenchement"
+    STR_PERT_CAUSE_EQUATION "Equation"
+    STR_PERT_CAUSE_MAINTENANCE "Maintenance"
+    STR_INTERFACE           "Interface"
+    STR_TIMESTAMP           "Timestamp"
+    STR_INOUT               "In/Out"
+    STR_DATA                "Données"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_ACK_FAULTS_MSGBOX_TITLE "Défauts"
+    STR_ACK_FAULTS_QUESTION "Acquitter les défauts du processeur ?"
+    STR_WARNING             "Warning"
+    STR_INFORMATION         "Information"
+    STR_FIND_SYMBOL         "Rechercher un symbole"
+    STR_NO_CORRESPONDING_SYMBOL "Aucun symbole ne correspond"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_BPB_TYPE            "Type"
+    STR_BPB_DESCRIPTION     "Description"
+    STR_BPB_SOFTWARE_VERSION "Version logicielle"
+    STR_BPB_ENDIAN_TYPE     "Type d'endian"
+    STR_BPB_ENDIAN_TYPE_LITTLE "Little Endian"
+    STR_BPB_ENDIAN_TYPE_BIG "Big Endian"
+    STR_BPB_ADDR_BUS_WIDTH  "Largeur du bus d'adresse"
+    STR_BPB_DATA_MIN_WIDTH  "Largeur minimum du bus de données"
+    STR_BPB_UNKNOWN         "Inconnu"
+    STR_BPB_FILE_PREFIX     "Préfixe des fichiers"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_BPB_MAX_SYMBOLS_PER_DASHBOARD 
+                            "Nombre maximum de symboles par tableau de bord"
+    STR_BPB_SAVE_PARAM_FAILURE "Erreur lors de la sauvegarde des paramètres"
+    STR_BPB_RESTORE_PARAM_FAILURE 
+                            "Erreur lors de la restauration des paramètres d'usine"
+    STR_BPB_READ_FAILURE    "Erreur lors de la lecture"
+    STR_BPB_WRITE_FAILURE   "Erreur lors de l'écriture"
+    STR_BPB_LOCK_FAILURE    "Erreur lors du verrouillage"
+    STR_BPB_RELEASE_FAILURE "Erreur lors du déverrouillage"
+    STR_BPB_EXEC_RPC_FAILURE "Erreur lors de l'exécution de la RPC"
+    STR_BPB_ACK_FAULTS_FAILURE "Erreur lors de l'acquitement des défauts"
+    STR_BPB_ACK_FAULTS_NOT_ALLOWED "Acquitement des défauts non autorisé"
+    STR_BPB_RESULT          "Résultat"
+    STR_BPB_PROC_VIEW       "Vue processeur"
+    STR_BPB_TITLE           "Processeurs/Symboles"
+    STR_BPB_BUILD_DATE      "Date de build"
+    STR_BPB_COPY_NAME_TO_CLIPBOARD 
+                            "Copier le nom du symbole dans le Presse-Papiers Ctrl+C"
+    STR_BPB_ADD_TO_NEW_DASHBOARD "Ajouter à un nouveau tableau de bord"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_BPB_CMD_LOCK_IO     "Verrouiller l'IO"
+    STR_BPB_CMD_RELEASE_IO  "Déverrouiller l'IO"
+    STR_BPB_CMD_READ_DEFAULT "Lire le défaut"
+    STR_BPB_CMD_LOCK_DEFAULT "Vérouiller le défaut"
+    STR_BPB_CMD_RELEASE_DEFAULT "Déverrouiller le défaut"
+    STR_BPB_CMD_HEXADECIMAL_DISPLAY "Affichage héxadécimal"
+    STR_BPB_CMD_DECIMAL_DISPLAY "Affichage décimal"
+    STR_BPB_CMD_SAVE_PARAM  "Sauver les paramètres"
+    STR_BPB_CMD_RESTORE_PARAM "Restaures les paramètres usines"
+    STR_BPB_CMD_SAVE_PARAM_TO_FILE "Sauver les paramètres dans un fichier"
+    STR_BPB_CMD_EXEC_RPC    "Exécuter la RPC"
+    STR_BPB_CMD_RD_CHANGE_MODE "Lire/Modifier le mode du processeur"
+    STR_BPB_CMD_RD_UPDATE_CLOCK "Lire/Modifier l'heure du processeur"
+    STR_BPB_CMD_ACK_FAULTS  "Acquitter les défauts du processeur"
+    STR_BPB_CMD_DUMP_SYMBOL "Dumper le symbole"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_BPB_DESC            "Desc"
+    STR_BPB_SYM_VIEW        "Vue symbole"
+    STR_BPB_CMD_READ_SYMBOL "Lire le symbole"
+    STR_BPB_CMD_WRITE_SYMBOL "Ecrire le symbole"
+    STR_BPB_CMD_WRITE_SYMBOL_HEXA 
+                            "Ecrire le symbole dans le format héxadécimal"
+    STR_BPB_CMD_WRITE_SYMBOL_BIN "Ecrire le symbole dans le format binaire"
+    STR_BPB_CMD_READ_IO     "Lire l'IO"
+    STR_BPB_CMD_WRITE_IO    "Ecrire l'IO"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_TRC_CMD_CLEAR_HISTORY "Effacer l'historique"
+    STR_TRC_CMD_ACTIVATE_LOG_TO_FILE 
+                            "Activer la sauvegarde du journal dans un fichier"
+    STR_TRC_CMD_DEACTIVATE_LOG_TO_FILE 
+                            "Arrêter la sauvegarde du journal dans un fichier"
+    STR_TRC_CONSOLE         "Console"
+    STR_TRC_LUA_OUTPUT      "Sorties LUA"
+    STR_TRC_TITLE           "Trace"
+    STR_EVTDLG_EVENT_RECORDER "Enregistreur d'événements"
+    STR_EVTDLG_CLEAR_EVENTS_FAILURE 
+                            "Erreur lors de l'effacement des événements"
+    STR_EVTDLG_READ_EVENTS_FAILURE 
+                            "Erreur lors du rapatriement des événements"
+    STR_EVTDLG_LOAD_EVENTSFILE_FAILURE 
+                            "Impossible de charger le fichier : il est peut-être corrompu"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_EVTDLG_APPEAR       "Apparition"
+    STR_EVTDLG_DISAPPEAR    "Disparition"
+    STR_EVTDLG_FILTER_NONE  "<aucun>"
+    STR_FILTER_NONE         "<aucun>"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_ERROR               "Erreur"
+    STR_ERROR_NOT_SCALAR_SYMBOL "Symbole non scalaire"
+    STR_ERROR_UNKNOWN_SYMBOL "Symbole inconnu"
+    STR_ERROR_UNKNOWN_PROCESSOR "Processeur inconnu"
+    STR_ERROR_BAD_VALUE     "Valeur incorrecte"
+    STR_FORBIDDEN           "Action interdite"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_PERTCTRLDLG_SNIFFER "Perturbographe"
+    STR_PERTCTRLDLG_STOPPED "Arrêté"
+    STR_PERTCTRLDLG_ONWATCHED "En veille"
+    STR_PERTCTRLDLG_ARMED   "Armé"
+    STR_PERTCTRLDLG_TRIGGERED "Déclenché"
+    STR_PERTCTRLDLG_INVALID_CFG "Configuration invalide"
+    STR_PERTCTRLDLG_USER_CFG "Configuration utilisateur"
+    STR_PERTCTRLDLG_FACTORY_CFG "Configuration usine"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_PERTCTRLDLG_STOP_PERT_FAILURE "Erreur lors de la demande d'arrêt"
+    STR_PERTCTRLDLG_ONWATCH_PERT_FAILURE 
+                            "Erreur lors de la demande de passage en veille"
+    STR_PERTCTRLDLG_ARM_PERT_FAILURE "Erreur lors de la demande d'armement"
+    STR_PERTCTRLDLG_RESTORE_FACTORY_CFG_FAILURE 
+                            "Erreur lors de la restauration de la configuration usine"
+    STR_PERTCTRLDLG_UPLOAD_CFG_FAILURE 
+                            "Erreur lors du chargement de la nouvelle configuration"
+    STR_PERTCTRLDLG_DOWNLOAD_CFG_FAILURE 
+                            "Erreur lors du rapatriement de la configuration courante"
+    STR_PERTCTRLDLG_DOWNLOAD_FILMS_FAILURE 
+                            "Erreur lors du rapatriement des films"
+    STR_PERTCTRLDLG_READING_VAR_NAMES_BUFFER 
+                            "Lecture du buffer de noms des variables"
+    STR_PERTCTRLDLG_READING_VAR_CHARACTERISTICS 
+                            "Lecture des caractéristiques des variables"
+    STR_PERTCTRLDLG_READING_FILMS "Lecture du film"
+    STR_PERTCTRLDLG_READING_CONFIG "Lecture de la configuration"
+    STR_PERTCTRLDLG_WRITING_CONFIG "Ecriture de la configuration"
+    STR_PERTCTRLDLG_DOWNLOAD_IN_PROGRESS "Rapatriement en cours ..."
+END
+
+STRINGTABLE 
+BEGIN
+    STR_PERTFILMSDLG_ERROR_LOAD 
+                            "Impossible de charger le fichier : il est peut-être corrompu"
+    STR_PERTFILMSDLG_ERROR_NOT_FOUND_IN_FILM "non trouvé dans le film"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_INITMEMSYMDLG_DOC_TITLE "Initialisation de la mémoire ou de symboles"
+    STR_INITMEMSYMDLG_LINE  "Ligne"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_INITMEMSYMDLG_ACTION "Action"
+    STR_INITMEMSYMDLG_MEM_SYM "Mem/Sym"
+    STR_INITMEMSYMDLG_ERROR_UNKNOWM_COMMAND "Commande inconnue"
+    STR_INITMEMSYMDLG_STATUS_OK "OK"
+    STR_INITMEMSYMDLG_ERROR_BAD_FORMAT "format incorrect"
+    STR_INITMEMSYMDLG_ERROR_BAD_ADDRESS 
+                            "Adresse incorrecte ou non compatible avec le processeur"
+    STR_INITMEMSYMDLG_ERROR_BAD_WIDTH "Largeur incorrecte"
+    STR_INITMEMSYMDLG_WRITE_FAILURE "Error lors de l'écriture"
+    STR_INITMEMSYMDLG_ACTION_WAIT "Attente"
+    STR_INITMEMSYMDLG_ERROR_INTERNAL "Erreur interne"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_CLOCKDLG_UPDATE_FAILURE 
+                            "L'année doit être supérieure à 2000 et inférieure à 2030"
+    STR_CLOCKDLG_ERROR_BAD_YEAR "Erreur lors de la mise à l'heure"
+    STR_CLOCKDLG_NOT_ABSOLUTE 
+                            "La datation est gérée par rapport à la mise sous tension et non de façon absolue"
+    STR_MODEDLG_READ_FAILURE 
+                            "Erreur lors de la lecture du mode de fonctionnement du processeur"
+    STR_MODEDLG_WRITE_FAILURE 
+                            "Erreur lors de la mise à jour du mode de fonctionnement du processeur"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_MEMDLG_DOC_TITLE    "Fenêtre mémoire"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_PROCMEMGRIDCTRL_READ_FAILURE "Erreur lors de la lecture"
+    STR_PROCMEMGRIDCTRL_WRITE_FAILURE "Erreur lors de l'écriture"
+    STR_PROCMEMGRIDCTRL_ERROR_BAD_SIZE "Taille incorrecte"
+    STR_PROCMEMGRIDCTRL_ERROR_NULL_SIZE "Taille nulle"
+    STR_PROCMEMGRIDCTRL_ERROR_BAD_ADDRESS "Adresse incorrecte"
+    STR_PROCMEMGRIDCTRL_ERROR_BAD_VALUE "Valeur à écrire incorrecte"
+    STR_PROCMEMGRIDCTRL_ERROR_SIZE_TOO_BIG "Taille trop grande"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_CNX_FILE_FILTER     "Connexion (*.cnx)|*.cnx|Text Files (*.txt)|*.txt|Tous les fichiers (*.*)|*.*||"
+    STR_CSV_FILE_FILTER     "Fichiers CSV (*.csv)|*.csv|Tous les fichiers (*.*)|*.*||"
+    STR_LOG_FILE_FILTER     "Log File (*.log)|*.log|Tous les fichiers (*.*)|*.*||"
+    STR_PERTFILMS_LAYOUT_FILE_FILTER 
+                            "Perturbographe Layout (*.xpla)|*.xpla|Tous les fichiers (*.*)|*.*||"
+    STR_PERTCONFIG_FILE_FILTER 
+                            "Configuration Perturbographe (*.xpcfg)|*.xpcfg|Tous les fichiers (*.*)|*.*||"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_ADMINISTRATOR_LEVEL "Administrateur"
+    STR_CONNECTED_STATE     "Connecté"
+    STR_PSEUDO_CONNECTED_STATE "Pseudo-connecté"
+    STR_DISCONNECTED_STATE  "Déconnecté"
+    STR_SEQTSTDLG_SEQ       "Séquenceur de tests"
+    STR_STEP_NUM            "Pas"
+    STR_SEQTSTDLG_STOPPED   "Séquenceur arrêté"
+    STR_SEQTSTDLG_STOPPED_ON_ERROR "Séquenceur arrêté sur erreur"
+    STR_SEQTSTDLG_BUSY      "Séquence en cours d'exécution"
+    STR_SEQTSTDLG_PAUSED    "En pause"
+    STR_SEQTSTDLG_START_FAILURE "Erreur lors du démarrage de la séquence"
+    STR_SEQTSTDLG_STOP_FAILURE "Erreur lors de l'arrêt de la séquence"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_SEQTSTDLG_CONTINUE_FAILURE "Erreur lors du redémarrage de la séquence"
+    STR_SEQTSTDLG_SET_STEP_BY_STEP_FAILURE 
+                            "Erreur lors du changement du mode pas a pas"
+    STR_SEQTSTDLG_LOAD_TRACESFILE_FAILURE 
+                            "Impossible de charger le fichier : il est peut-être corrompu"
+    STR_QUESTION_DATA_INCOMPATIBLE 
+                            "Les données du fichier correspondent à une autre version d'au moins un des logiciels embarqués.\r\nVoulez-vous quand même charger le fichier ?"
+    STR_SAME_SW             "Même log."
+    STR_YES                 "Oui"
+    STR_NO                  "Non"
+    STR_IN                  "IN"
+    STR_OUT                 "OUT"
+    STR_UNKNOWN             "UNKNOWN"
+    STR_QUESTION_SAVE_DATA  "Sauvegarder les données dans un fichier ?"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_SIZE                "Taille"
+    STR_CRC                 "Crc"
+    STR_FILEMGRDLG_FILE_MANAGER "Gestionnaire de fichiers"
+    STR_FILEMGRDLG_LIST_DIR_FAILURE "Erreur lors du listage des fichiers"
+    STR_FILEMGRDLG_PUT_FILE_FAILURE 
+                            "Erreur lors du chargement d'un fichier sur la cible"
+    STR_FILEMGRDLG_GET_FILE_FAILURE 
+                            "Erreur lors du rapatriement d'un fichier depuis la cible"
+    STR_FILEMGRDLG_DELETE_FILE_FAILURE 
+                            "Erreur lors de la suppression d'un fichier sur la cible"
+    STR_FILEMGRDLG_CREATE_DIR_FAILURE 
+                            "Erreur lors de la création d'un répertoire sur la cible"
+    STR_FILEMGRDLG_DELETE_DIR_FAILURE 
+                            "Erreur lors de la suppression d'un répertoire sur la cible"
+    STR_FILEMGRDLG_DIR_NAME_TO_CREATE "Nom du répertoire à créer"
+    STR_FILEMGRDLG_DELETE_QUESTION "Voulez-vous vraiment supprimer '%s' ?"
+    STR_FILEMGRDLG_DELETE_FILE_WARNING 
+                            "Confirmation de la suppression du fichier"
+    STR_FILEMGRDLG_DELETE_DIR_WARNING 
+                            "Confirmation de la suppression du répertoire"
+    STR_FILEMGRDLG_CLOSING_FILE "Fichier en cours de fermeture ..."
+    STR_LINE_NUMBER         "N° de ligne ?"
+END
+
+STRINGTABLE 
+BEGIN
+    IDP_ALLOW_MODIFY_READONLY_FILE 
+                            "Voulez-vous modifier ce document en lecture seule ?"
+    IDS_LINE_INDICATOR      "Line: %ld, Col: %ld, Character: %ld"
+    IDS_STYLE_INDICATOR     "Style: %d"
+    IDS_FOLD_INDICATOR      "Folding level: %d"
+    STR_ERROR_CTX_SIZE      "La taille des données n'est pas cohérente. Certaines données peuvent être erronées. Voulez-vous sauvegarder ?"
+    STR_POTENTIAL_ERROR_DATA "Données potentiellement erronées"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_SCOPE_CMD_REMOVE_SERIE "Enlever la série"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_OPERATOR_LEVEL      "Opérateur"
+    STR_ENGINEER_LEVEL      "Réparateur"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_SPYDLG_SPY_RECORDER "Enregistreur SPY"
+    STR_SPYDLG_LOAD_SPYFILE_FAILURE 
+                            "Impossible de charger le fichier : il est peut-être corrompu"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_DLG_CONFIG_PERTURBO_TITLE "Configuration perturbographe"
+    STR_MAX_TERM_REACHED    "Le nombre maximum de terme est atteint"
+END
+
+STRINGTABLE 
+BEGIN
+    IDC_GESTION_FILM_PILE   "Les films les plus anciens sont conservés"
+    IDC_GESTION_FILM_FILE   "Les films les plus récents sont conservés"
+    ID_PERTCONFIGDLG_SAVE_AS_CFG "Enregistrer sous...\nEnregistrer sous..."
+    ID_PERTCONFIGDLG_SAVE_CFG "Enregistrer\nEnregistrer"
+    ID_PERTCONFIGDLG_UPLOAD_CFG 
+                            "Sauvegarder et charger configuration perturbographe\nSauvegarder et charger configuration perturbographe"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_COLONNE_ACTIV_CREATION_TERM "Activation"
+    IDS_COLONNE_VALEUR_CREATION_TERM "Valeur"
+    IDS_COLONNE_VARIABLE_CREATION_TERM "Variable"
+    IDS_COLONNE_EQU_ARM     "Equation d'armement"
+    IDS_COLONNE_EQU_DECL    "Equation de déclenchement"
+    IDS_COLONNE_FLAG        "Flag"
+    IDS_COLONNE_VARIABLE    "Variable"
+    IDS_ONGLET_ECHAN_FILM   "Echantillonnage - Films"
+    IDS_ONGLET_LIST_VAR     "Variables"
+    IDS_ONGLET_EQU          "Equations"
+END
+
+STRINGTABLE 
+BEGIN
+    STR_ET                  "ET"
+    STR_NON                 "NON"
+    STR_CONFIG_INCORRECTE   "Configuration perturbographe incorrecte"
+    IDS_SAVE_CURR_CFG       "Sauvegarder la configuration courante ?"
+    IDS_TITLE_NEW_CFG       "Sans titre"
+    IDS_ERROR_OPEN_CFG      "Erreur lors du chargement de la configuration perturbographe"
+    IDS_SEL_PERT_LOADING_CONFIG " (chargement config)"
+    IDS_TOOL_TIP_EQU        "Un OU est effectué entre chaque terme"
+    IDS_TOOL_TIP_TERM       "Un ET est effectué entre chaque variable sélectionnée"
+    IDS_TYPE_ECHAN_APPLI    "Gestion de l'échantillonnage par l'application embarquée (généralement avec des interruptions)"
+    IDS_TYPE_ECHAN_INTERNE  "Gestion de l'échantillonnage par le service perturbographe"
+    IDS_PERIODE_ECHAN       "Applicatif : nombre de ticks de la période applicative. Interne : période en ms"
+    IDS_NB_ECHAN_MAX_FILM   "Nombre maximum d'échantillons. Valeur limitée selon la place mémoire libre sur le processeur."
+    IDS_NB_ECHAN_APRES_DECL "Nombre maximum d'échantillons après le déclenchement"
+    IDS_NB_MAX_FILM         "Nombre maximum de films enregistrés"
+    IDS_ERROR_PROC_NOT_AVAILABLE 
+                            "Processeur associé au fichier de configuration non disponible\n\nOuverture d'une fenêtre de création de configuration"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_CONFIRM_SUPPR       "Voulez-vous vraiment supprimer la variable "
+    IDS_CONFIRM_SUPPR_UNCHECK_SUITE 
+                            "?\nUn ou plusieurs termes seront supprimés."
+    IDS_CONFIRM_UNCHECK     "Voulez-vous vraiment décocher la variable "
+    IDR_PERT_CONFIG         "OngTV\nConfiguration perturbographe\nConfiguration perturbographe\nConfiguration perturbographe (*.xpcfg)\n.xpcfg\n\n"
+    IDS_EXISTING_TERM       "Le terme existe déjà"
+    IDS_LABEL_APPLI         "Nb ticks période applicative :"
+    IDS_LABEL_INTERNE       "Période (en ms) :"
+    IDS_TOOL_TIP_EQUARM     "En mode Veille, lorsque l'équation d'armement est vérifiée, on passe en mode Armé"
+    IDS_TOOL_TIP_EQUDECL    "En mode Armé, lorsque l'équation de déclenchement est vérifiée, on attend un certains nombre d'échantillons (cf. 1er onglet), on sauvegarde un film et on repasse en mode Veille"
+    IDS_TOOL_TIP_FILMS      "Après l'échantillonnage post-déclenchement, un film est sauvegardé et le perturbo repasse en mode Veille"
+END
+
+#endif    // French (France) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+#include "OXScrollWnd.rc"
+
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_FRA)
+LANGUAGE 12, 1
+#pragma code_page(1252)
+#include "res\OngTV.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#include "afxprint.rc"   // printing/print preview resources
+#if !defined(_AFXDLL)
+#include "afxribbon.rc"          // MFC ribbon and control bar resources
+#endif
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

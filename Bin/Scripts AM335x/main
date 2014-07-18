@@ -1,0 +1,30 @@
+require "Scripts Common/tables"
+require "Scripts AM335x/functions"
+require "Scripts AM335x/commands"
+
+ClearRequirement()
+
+dofile "Scripts AM335x/prepareBoard_1.lua"
+
+dofile "Scripts AM335x/bootloaderVersion.lua"
+dofile "Scripts AM335x/MessageValidation.lua"
+dofile "Scripts AM335x/parameters.lua"
+dofile "Scripts AM335x/reset.lua"
+dofile "Scripts AM335x/startMaintenanceMode.lua"
+dofile "Scripts AM335x/startPump.lua"
+dofile "Scripts AM335x/synchronisation.lua"
+dofile "Scripts AM335x/write.lua"
+dofile "Scripts AM335x/presetMode.lua"
+dofile "Scripts AM335x/tftpWriteBinary.lua"
+dofile "Scripts AM335x/route.lua"
+dofile "Scripts AM335x/flipFlop.lua"
+dofile "Scripts AM335x/address.lua"
+dofile "Scripts AM335x/resetPump.lua"
+dofile "Scripts AM335x/tftpRemote.lua"
+dofile "Scripts AM335x/startLocal.lua"
+
+dofile "Scripts AM335x/prepareBoard_2.lua"
+
+dofile "Scripts AM335x/startLocal_2.lua"
+dofile "Scripts AM335x/startPump_2.lua"
+

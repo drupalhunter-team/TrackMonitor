@@ -1,0 +1,941 @@
+    
+Quelques rappels :
+
+AdeView est un outil de monitoring de logiciels s'éxécutant sur des cartes électroniques.
+Il est capable d'accéder aux symboles et services d'un processeur "embarqué".
+Les symboles d'un processeurs peuvent être de natures différentes. On distingue:
+    1. Les symboles issus du parsing des fichiers exécutables (majoritairement aux format elf/Dwarf1 ou elf/Dwarf2)
+       il s'agit de toutes les variables du logiciel ayant une portée globale ou statique (à un module ou à une fonction)
+    2. Les symboles exposés par le processeur lui même (à l'aide des fonctions MON_Registerxxx).
+       Cette possibilité d'exposition par le processeur peut être utilisée pour :
+           a. exposer des symboles de type RPC (remote procedure call) qui permettent de lancer l'execution
+              d'une fonction sur l'embarqué depuis le PC.
+           b. exposer des symboles "normaux" si aucun parser n'est disponible pour le couple processeur/compilateur
+           c. exposer des symboles de type "buffer" qui permettent d'accéder à des variables ou à des zones mémoire
+              de façon banalisée (pas de typage)
+    3. Les symboles IO (généralement issus de l'exploitation du contenu de la variable IO_tab de l'embarqué)
+    4. Les symboles FAULT (généralement issus de l'exploitation du contenu de la variable FAULT_tab de l'embarqué)
+    5. Les symboles ALIAS (dans le module ALIAS) qui permettent de représenter différemment le contenu d'une autre variable
+       (avec des coefficient de mise à l'échelle différents par exemple) - ces symboles sont issus du parsing du fichier de mise
+       à l'échelle associé à un processeur (le parsing est fait à la connexion sur le processeur)
+    6. Les symboles VIRTUAL (dans le module VIRTUAL) qui sont des symboles créés de toutes pièces et qui permettent, par
+       exemple, d'accéder à une zone mémoire sur l'embarqué sans que cette zone n'ait été exposée par l'embarqué. La manipulation
+       de ce type de symbole doit être faite avec précaution car on peut facilement provoques des dysfonctionnements importants
+       sur la commande - ces symboles sont issus du parsing du fichier de mise à l'échelle associé à un processeur
+       (le parsing est fait à la connexion sur le processeur).
+
+    
+-------------------------------------------------------------------------------           
+Description succintes des fonctions
+-------------------------------------------------------------------------------           
+    
+Accès aux variables scalaires
+-----------------------------
+    GetScalarVariable
+        => lecture d'une variable scalaire sans acceder à l'embarqué (lecture dans le buffer interne sur le PC)
+           et retour de la valeur brute sous forme de double 
+    GetScaledScalarVariable
+        => fonction similaire mais qui retourne une valeur mise à l'échelle (en fonction du fichier .sca)
+    GetScalarVariableAsString
+        => lecture d'une variable scalaire sans acceder à l'embarqué (lecture dans le buffer interne de la variable sur le PC)
+           et retour de la valeur brute sous forme d'une chaine de caracteres
+    GetScaledScalarVariableAsString
+        => fonction similaire mais qui retourne une valeur mise à l'échelle (en fonction du fichier .sca)
+    SetScalarVariable
+        => ecriture d'une variable scalaire sans acceder à l'embarqué (écriture dans le buffer interne de la variable sur le PC)
+    SetScaledScalarVariable
+        => fonction similaire mais qui prend en entrée une valeur à l'échelle (en fonction du fichier .sca)
+    SetScalarVariableString
+        => ecriture d'une variable scalaire sans acceder à l'embarqué (écriture dans le buffer interne de la variable sur le PC)
+    SetScaledScalarVariableString
+        => fonction similaire mais qui prend en entrée une valeur à l'échelle (en fonction du fichier .sca)
+    ReadScalarVariable
+        => lecture d'une variable scalaire sur l'embarqué et retour de la valeur brute sous forme de double 
+    ReadScaledScalarVariable
+        => fonction similaire mais qui retourne une valeur mise à l'échelle (en fonction du fichier .sca)
+    ReadScalarVariableAsString
+        => lecture d'une variable scalaire sur l'embarqué et retour de la valeur brute sous forme d'une chaine de caracteres
+    ReadScaledScalarVariableAsString
+        => fonction similaire mais qui retourne une valeur mise à l'échelle (en fonction du fichier .sca)
+    WriteScalarVariable
+        => ecriture d'une variable scalaire sur l'embarqué
+    WriteScaledScalarVariable
+        => fonction similaire mais qui prend en entrée une valeur à l'échelle (en fonction du fichier .sca)
+    WriteScalarVariableString
+        => ecriture d'une variable scalaire sur l'embarqué
+    WriteScaledScalarVariableString
+        => fonction similaire mais qui prend en entrée une valeur à l'échelle (en fonction du fichier .sca)
+
+Accès aux variables
+-------------------
+    ReadVariable
+        => lecture d'une variable sur l'embarqué et mise à jour du buffer interne de cette
+           variable sur le PC
+           Cette fonction existe sous deux formes :
+           - la premiere est la forme simple
+           - la seconde est une forme etendue permettant l'affichage d'une progress bar
+             pour la lecture d'une tres grande variable (plusieurs Ko)
+    WriteVariable
+        => Ecriture d'une variable sur l'embarqué (copie du buffer interne de cette
+           variable sur le PC vers l'embarqué)
+           Cette fonction existe sous deux formes :
+           - la premiere est la forme simple
+           - la seconde est une forme etendue permettant l'affichage d'une progress bar
+             pour l'écriture d'une tres grande variable (plusieurs Ko)
+    LockVariable
+        => verrouillage d'une IO ou d'une FAULT sur l'embarqué
+    ReleaseVariable
+        => déverrouillage d'une IO ou d'une FAULT sur l'embarqué
+
+Accès aux variables de type buffer
+----------------------------------
+    les buffers sont des symboles qui sont exportés par le processeur embarque et non
+    issus du parsing du fichier de symboles - utilisation de la foncion embarquée MON_RegisterSymbol
+    
+    SetUByteInBuffer
+        => ecriture d'un octet dans le buffer sans acceder à l'embarqué
+    SetUShortInBuffer
+        => ecriture d'un mot 16 bits dans le buffer sans acceder à l'embarqué
+    SetULongInBuffer
+        => ecriture d'un mot 32 bits dans le buffer sans acceder à l'embarqué
+    SetFloatInBuffer
+        => ecriture d'un float (32 bits format X86) dans le buffer sans acceder à l'embarqué
+    GetUByteInBuffer
+        => Lecture d'un octet dans le buffer sans acceder à l'embarqué
+    GetUShortInBuffer
+        => lecture d'un mot 16 bits dans le buffer sans acceder à l'embarqué
+    GetULongInBuffer
+        => lecture d'un mot 32 bits dans le buffer sans acceder à l'embarqué
+    GetFloatInBuffer
+        => lecture d'un float (32 bits format X86) dans le buffer sans acceder à l'embarqué
+    LoadBufferFromFile
+        => Chargement du buffer interne d'un buffer avec le contenu d'un fichier
+    SaveBufferToFile
+        => Sauvegarde du contenu du buffer interne d'un buffer dans un fichier
+    
+Exécution d'une RPC
+-------------------
+    Rappel : une RPC est une fonction embarquée qui a le prototype "C" suivant
+                typedef INT32U (*T_RPC) ( INT32U inpP0
+                                        , INT32U inpP1
+                                        , INT32U inpP2
+                                        , INT32U inpP3
+                                        , INT32U inpP4
+                                        , INT32U *pOutP0
+                                        , INT32U *pOutP1
+                                        , INT32U *pOutP2
+                                        , INT32U *pOutP3
+                                        , INT32U *pOutP4
+                                        );
+    Une fonction ayant ce prototype peut être rendue visible par l'embarqué en appelant
+    la fonction MON_RegisterRPC(T_RPC rpc, INT8U *symbolName) ou <rpc> est l'adresse de cette
+    fonction et <symbolName> le nom sous laquelle la rpc apparaîtra dans le module PUBLIC
+    du processeur sous Adeview
+    C'est donc une fonction qui prend 5 paramètres en entrée et qui renvoie un code retour
+    et 5 paramètres en sortie.
+
+    ExecRPCNew
+        => exécution d'une RPC sur l'embarqué
+    ExecRPC
+        => exécution d'une RPC sur l'embarqué
+        Même fonction que ExecRPCNew excepté concernant l'ordre des paramètres de sorties
+
+Accès au service de gestion des modes
+-------------------------------------
+    ReadProcessorMode
+        => Lecture du mode de fonctionnement d'un processeur
+    ChangeProcessorMode
+        => Changement du mode de fonctionnement d'un processeur
+
+Accès au service de debug
+-------------------------
+    ReadNextProcessorDebugString
+        => lecture d'un message de debug sur le processeur
+    
+Accès au service de gestion de l'heure
+--------------------------------------
+    GetDateTime
+        => lecture de l'heure d'un processeur
+    UpdateToPCDateTime
+        => mise à l'heure d'un processeur avec l'heure courante du PC
+    
+Autres fonctions
+----------------            
+    GetSymbolAddr
+        => recuperation de l'adresse d'un symbole
+    SelectProcessorDialog
+        => appel de la boite de dialogue de sélection d'un processeur
+    FileOpenDialog
+        => appel de la boite de dialogue standard de windows pour l'ouverture d'un fichier
+    FileSaveDialog
+        => appel de la boite de dialogue standard de windows pour la sauvegarde d'un fichier
+    Sleep
+        => temporisation
+    MessageBox
+        => Affichage d'une messageBox (appel de la fonction MessageBox de l'API Windows)
+    Connect
+        => établissement de la connexion avec les processeurs embarqués, cette fonction
+           produit les mêmes effets que la commande "Connect" accessible depuis 
+           le menu "Connection" de l'IHM AdeView
+    Disconnect
+        => arrêt de la connexion avec les processeurs embarqués, cette fonction
+           produit les mêmes effets que la commande "Disconnect" accessible depuis 
+           le menu "Connection" de l'IHM AdeView
+           
+-------------------------------------------------------------------------------           
+Description détaillée des fonctions
+-------------------------------------------------------------------------------           
+           
+Codes retours possibles pour ces fonctions
+    STATUS_OK                     0  => Pas de problème
+    STATUS_NOK                    1  => Echec 
+    STATUS_COM_ERROR              2  => Erreur de comm avec un processeur
+    STATUS_UNKNOWN_PROC        0x10  => Processeur inconnu
+    STATUS_UNKNOWN_SYMBOL      0x20  => Symbole inconnu
+    STATUS_SYMBOL_NOT_SCALAR   0x21  => Symbole non scalaire
+    STATUS_SYMBOL_NOT_BUFFER   0x22  => Symbole non buffer
+    STATUS_SYMBOL_NOT_RPC      0x23  => Symbole non RPC
+    STATUS_BUFFER_OVERFLOW     0x24  => Over flow lors d'une ecriture ou une lecture sur un buffer
+    STATUS_NO_MORE_DBG_STRING  0x30  => Plus de chaine de debug disponible
+
+Accès aux variables scalaires
+-----------------------------
+
+    GetScalarVariable
+        => lecture d'une variable scalaire sans acceder à l'embarqué (lecture dans le buffer interne sur le PC)
+           et retour de la valeur brute sous forme de double 
+        Input param :
+            Nom de la variable
+        Output :
+            code retour de la fonction
+            valeur de la variable (double)
+        Exemple :
+            ret, valDouble = GetScalarVariable("SIMUL_PROC_1\\PUBLIC::var")
+            if ret ~= STATUS_OK then 
+                print("error lecture SIMUL_PROC_1\\PUBLIC::var")
+            else
+                print(valDouble)
+            end
+    GetScaledScalarVariable
+        => fonction similaire mais qui retourne une valeur mise à l'échelle (en fonction du fichier .sca)
+        
+    GetScalarVariableAsString
+        => lecture d'une variable scalaire sans acceder à l'embarqué (lecture dans le buffer interne de la variable sur le PC)
+           et retour de la valeur brute sous forme d'une chaine de caracteres
+        Input param :
+            Nom de la variable
+        Output :
+            code retour de la fonction
+            valeur de la variable (string)
+        Exemple :
+            ret, valString = GetScalarVariableAsString("SIMUL_PROC_1\\PUBLIC::var")
+            if ret ~= STATUS_OK then 
+                print("error ecriture SIMUL_PROC_1\\PUBLIC::var")
+            else
+                print(valString)
+            end
+    GetScaledScalarVariableAsString
+        => fonction similaire mais qui retourne une valeur mise à l'échelle (en fonction du fichier .sca)
+            
+    SetScalarVariable
+        => ecriture d'une variable scalaire sans acceder à l'embarqué (écriture dans le buffer interne de la variable sur le PC)
+        Input param :
+            Nom de la variable
+            valeur a ecrire sous forme de double
+        Output :
+            code retour de la fonction
+        Exemple :
+            ret = SetScalarVariable("SIMUL_PROC_1\\PUBLIC::var", 85.49)
+            if ret ~= STATUS_OK then 
+                print("error ecriture SIMUL_PROC_1\\PUBLIC::var")
+            end
+    SetScaledScalarVariable
+        => fonction similaire mais qui prend en entrée une valeur à l'échelle (en fonction du fichier .sca)
+    
+    SetScalarVariableString
+        => ecriture d'une variable scalaire sans acceder à l'embarqué (écriture dans le buffer interne de la variable sur le PC)
+        Input param :
+            Nom de la variable
+            valeur a ecrire sous forme de string
+        Output :
+            code retour de la fonction
+        Exemple :
+            ret = SetScalarVariableString("SIMUL_PROC_1\\PUBLIC::var", "185.49")
+            if ret ~= STATUS_OK then 
+                print("error ecriture SIMUL_PROC_1\\PUBLIC::var")
+            end
+    SetScaledScalarVariableString
+        => fonction similaire mais qui prend en entrée une valeur à l'échelle (en fonction du fichier .sca)
+            
+    ReadScalarVariable
+        => lecture d'une variable scalaire sur l'embarqué et retour de la valeur brute sous forme de double 
+        Input param :
+            Nom de la variable
+        Output :
+            code retour de la fonction
+            valeur de la variable (double)
+        Exemple :
+            ret, valDouble = ReadScalarVariable("SIMUL_PROC_1\\PUBLIC::var")
+            if ret ~= STATUS_OK then 
+                print("error lecture SIMUL_PROC_1\\PUBLIC::var")
+            else
+                print(valDouble)
+            end
+    ReadScaledScalarVariable
+        => fonction similaire mais qui retourne une valeur mise à l'échelle (en fonction du fichier .sca)
+        
+    ReadScalarVariableAsString
+        => lecture d'une variable scalaire sur l'embarqué et retour de la valeur brute sous forme d'une chaine de caracteres
+        Input param :
+            Nom de la variable
+        Output :
+            code retour de la fonction
+            valeur de la variable (string)
+        Exemple :
+            ret, valString = ReadScalarVariableAsString("SIMUL_PROC_1\\PUBLIC::var")
+            if ret ~= STATUS_OK then 
+                print("error ecriture SIMUL_PROC_1\\PUBLIC::var")
+            else
+                print(valString)
+            end
+    ReadScaledScalarVariableAsString
+        => fonction similaire mais qui retourne une valeur mise à l'échelle (en fonction du fichier .sca)
+            
+    WriteScalarVariable
+        => ecriture d'une variable scalaire sur l'embarqué
+        Input param :
+            Nom de la variable
+            valeur a ecrire sous forme de double
+        Output :
+            code retour de la fonction
+        Exemple :
+            ret = WriteScalarVariable("SIMUL_PROC_1\\PUBLIC::var", 85.49)
+            if ret ~= STATUS_OK then 
+                print("error ecriture SIMUL_PROC_1\\PUBLIC::var")
+            end
+    WriteScaledScalarVariable
+        => fonction similaire mais qui prend en entrée une valeur à l'échelle (en fonction du fichier .sca)
+    
+    WriteScalarVariableString
+        => ecriture d'une variable scalaire sur l'embarqué
+        Input param :
+            Nom de la variable
+            valeur a ecrire sous forme de string
+        Output :
+            code retour de la fonction
+        Exemple :
+            ret = WriteScalarVariableString("SIMUL_PROC_1\\PUBLIC::var", "185.49")
+            if ret ~= STATUS_OK then 
+                print("error ecriture SIMUL_PROC_1\\PUBLIC::var")
+            end
+    WriteScaledScalarVariableString
+        => fonction similaire mais qui prend en entrée une valeur à l'échelle (en fonction du fichier .sca)
+            
+
+Accès aux variables
+-------------------
+
+    ReadVariable
+        => lecture d'une variable sur l'embarqué et mise à jour du buffer interne de cette
+           variable sur le PC
+           Cette fonction existe sous deux formes :
+           - la premiere est la forme simple
+           - la seconde est une forme etendue permettant l'affichage d'une progress bar
+             pour la lecture d'une tres grande variable (plusieurs Ko)
+        Forme 1
+        Input param :
+            Nom de la variable
+        Output :
+            code retour de la fonction
+        Exemple :
+            ret = ReadVariable("SIMUL_PROC_1\\PUBLIC::var")
+            if ret ~= STATUS_OK then 
+                print("error lecture variable SIMUL_PROC_1\\PUBLIC::var")
+            end
+        Forme 2
+        Input param :
+            Nom de la variable
+            Titre de la progress bar à afficher (string)
+            booleen indiquant si l'interruption de la commande est autorisée (bouton cancel
+            actif sur le dialogue progress bar)
+                1 = l'utilisateur peut interrompre la lecture
+                <>1 = l'utilisateur ne peut pas interrompre la lecture
+        Output :
+            code retour de la fonction (la fonction echoue si la lecture est interrompue par l'utilisateur)
+        Exemple :
+            ret = ReadVariable("SIMUL_PROC_1\\PUBLIC::longBuffer0", "lecture de longBuffer0 ... patientez", 1)
+            if ret ~= STATUS_OK then 
+                print("error lecture variable SIMUL_PROC_1\\PUBLIC::longBuffer0")
+            end
+
+    WriteVariable
+        => Ecriture d'une variable sur l'embarqué (copie du buffer interne de cette
+           variable sur le PC vers l'embarqué)
+           Cette fonction existe sous deux formes :
+           - la premiere est la forme simple
+           - la seconde est une forme etendue permettant l'affichage d'une progress bar
+             pour l'écriture d'une tres grande variable (plusieurs Ko)
+        Forme 1
+        Input param :
+            Nom de la variable
+        Output :
+            code retour de la fonction
+        Exemple :
+            ret = WriteVariable("SIMUL_PROC_1\\PUBLIC::var")
+            if ret ~= STATUS_OK then 
+                print("error écriture variable SIMUL_PROC_1\\PUBLIC::var")
+            end
+        Forme 2
+        Input param :
+            Nom de la variable
+            Titre de la progress bar à afficher (string)
+            booleen indiquant si l'interruption de la commande est autorisée (bouton cancel
+            actif sur le dialogue progress bar)
+                1 = l'utilisateur peut interrompre l'écriture
+                <>1 = l'utilisateur ne peut pas interrompre l'écriture
+        Output :
+            code retour de la fonction (la fonction echoue si l'écriture est interrompue par l'utilisateur)
+        Exemple :
+            ret = WriteVariable("SIMUL_PROC_1\\PUBLIC::longBuffer0", "écriture de longBuffer0 ... patientez", 1)
+            if ret ~= STATUS_OK then 
+                print("error écriture variable SIMUL_PROC_1\\PUBLIC::longBuffer0")
+            end
+
+    LockVariable
+        => verrouillage d'une IO ou d'une FAULT sur l'embarqué
+        Input param :
+            Nom de l'IO ou de la FAULT
+            valeur de forçage
+        Output :
+            code retour de la fonction
+        Exemple :
+            ret = LockVariable("SIMUL_PROC_1\\PUBLIC::EL_B0", 123)
+            if ret ~= STATUS_OK then 
+                print("error verrouillage SIMUL_PROC_1\\PUBLIC::EL_B0")
+            end
+        Note :
+            C'est une valeur brute qui est ecrite (pas de mise a l'echelle)
+            La fonction echoue si le symbole passe en paramètre n'est ni une IO
+            ni une FAULT
+
+    ReleaseVariable
+        => déverrouillage d'une IO ou d'une FAULT sur l'embarqué
+        Input param :
+            Nom de l'IO ou de la FAULT
+        Output :
+            code retour de la fonction
+        Exemple :
+            ret = ReleaseVariable("SIMUL_PROC_1\\PUBLIC::EL_B0")
+            if ret ~= STATUS_OK then 
+                print("error deverrouillage SIMUL_PROC_1\\PUBLIC::EL_B0")
+            end
+        Note :
+            La fonction echoue si le symbole passe en paramètre n'est ni une IO
+            ni une FAULT
+
+Accès aux variables de type buffer
+----------------------------------
+    les buffers sont des symboles qui sont exportés par le processeur embarque et non
+    issus du parsing du fichier de symboles - utilisation de la foncion embarquée MON_RegisterSymbol
+    
+    SetUByteInBuffer
+        => ecriture d'un octet dans le buffer sans acceder à l'embarqué
+        Input param :
+            Nom du buffer
+            Offset dans le buffer (au sens C => 0 pour acceder au premier octet du buffer)
+            Valeur a ecrire
+        Output :
+            code retour de la fonction
+        Exemple :
+            ret = SetUByteInBuffer("SIMUL_PROC_1\\PUBLIC::shortBuffer0", 0, 245)
+            if ret ~= STATUS_OK then 
+                print("error ecriture SIMUL_PROC_1\\PUBLIC::shortBuffer0")
+            end
+        Note : il n'y a pas de controle sur les parametres d'entree offset et valeur
+               qui sont des doubles (type numérique natif de LUA)
+               L'offset est converti dans un unsigned long "C"
+               La valeur est convertie dans un unsigned char "C"
+
+    SetUShortInBuffer
+        => ecriture d'un mot 16 bits dans le buffer sans acceder à l'embarqué
+        Input param :
+            Nom du buffer
+            Offset dans le buffer (au sens C => 0 pour acceder au premier octet du buffer)
+            Valeur a ecrire
+        Output :
+            code retour de la fonction
+        Exemple :
+            ret = SetUShortInBuffer("SIMUL_PROC_1\\PUBLIC::shortBuffer0", 1, 4025)
+            if ret ~= STATUS_OK then 
+                print("error ecriture SIMUL_PROC_1\\PUBLIC::shortBuffer0")
+            end
+        Note1 : il n'y a pas de controle sur les parametres d'entree offset et valeur
+                qui sont des doubles (type numérique natif de LUA)
+                L'offset est converti dans un unsigned long "C"
+                La valeur est convertie dans un unsigned short "C"
+        Note2 : L'offset est un offset en octet et non en mot 16 bits
+        Note3 : L'ecriture dans le buffer se fait en tenant compte du type d'endian du
+                processeur
+               
+    SetULongInBuffer
+        => ecriture d'un mot 32 bits dans le buffer sans acceder à l'embarqué
+        Input param :
+            Nom du buffer
+            Offset dans le buffer (au sens C => 0 pour acceder au premier octet du buffer)
+            Valeur a ecrire
+        Output :
+            code retour de la fonction
+        Exemple :
+            ret = SetULongInBuffer("SIMUL_PROC_1\\PUBLIC::shortBuffer0", 32, 85792)
+            if ret ~= STATUS_OK then 
+                print("error ecriture SIMUL_PROC_1\\PUBLIC::shortBuffer0")
+            end
+        Note1 : il n'y a pas de controle sur les parametres d'entree offset et valeur
+                qui sont des doubles (type numérique natif de LUA)
+                L'offset est converti dans un unsigned long "C"
+                La valeur est convertie dans un unsigned long "C"
+        Note2 : L'offset est un offset en octet et non en mot 32 bits
+        Note3 : L'ecriture dans le buffer se fait en tenant compte du type d'endian du
+                processeur
+               
+    SetFloatInBuffer
+        => ecriture d'un float (32 bits format X86) dans le buffer sans acceder à l'embarqué
+        Input param :
+            Nom du buffer
+            Offset dans le buffer (au sens C => 0 pour acceder au premier octet du buffer)
+            Valeur a ecrire
+        Output :
+            code retour de la fonction
+        Exemple :
+            ret = SetFloatInBuffer("SIMUL_PROC_1\\PUBLIC::shortBuffer0", 64, 128.5697)
+            if ret ~= STATUS_OK then 
+                print("error ecriture SIMUL_PROC_1\\PUBLIC::shortBuffer0")
+            end
+        Note1 : il n'y a pas de controle sur les parametres d'entree offset et valeur
+                qui sont des doubles (type numérique natif de LUA)
+                L'offset est converti dans un unsigned long "C"
+        Note2 : L'offset est un offset en octet et non en float
+        Note3 : L'ecriture dans le buffer se fait en tenant compte du type d'endian du
+                processeur => je ne suis pas sur que ce soit valide pour un processeur big endian.
+               
+    GetUByteInBuffer
+        => Lecture d'un octet dans le buffer sans acceder à l'embarqué
+        Input param :
+            Nom du buffer
+            Offset dans le buffer (au sens C => 0 pour acceder au premier octet du buffer)
+        Output :
+            code retour de la fonction
+            Valeur lue
+        Exemple :
+            ret, valDouble = GetUByteInBuffer("SIMUL_PROC_1\\PUBLIC::shortBuffer0", 0)
+            if ret ~= STATUS_OK then 
+                print("error ecriture SIMUL_PROC_1\\PUBLIC::shortBuffer0")
+            else
+                print(valDouble)
+            end
+        Note : il n'y a pas de controle sur le parametre d'entree offset 
+               qui est un double (type numérique natif de LUA)
+               L'offset est converti dans un unsigned long "C"
+
+    GetUShortInBuffer
+        => lecture d'un mot 16 bits dans le buffer sans acceder à l'embarqué
+        Input param :
+            Nom du buffer
+            Offset dans le buffer (au sens C => 0 pour acceder au premier octet du buffer)
+        Output :
+            code retour de la fonction
+            Valeur lue
+        Exemple :
+            ret, valDouble = GetUShortInBuffer("SIMUL_PROC_1\\PUBLIC::shortBuffer0", 1)
+            if ret ~= STATUS_OK then 
+                print("error ecriture SIMUL_PROC_1\\PUBLIC::shortBuffer0")
+            else
+                print(valDouble)
+            end
+        Note1 : il n'y a pas de controle sur le parametre d'entree offset 
+                qui est un double (type numérique natif de LUA)
+                L'offset est converti dans un unsigned long "C"
+        Note2 : L'offset est un offset en octet et non en mot 16 bits
+        Note3 : La lecture dans le buffer se fait en tenant compte du type d'endian du
+                processeur
+               
+    GetULongInBuffer
+        => lecture d'un mot 32 bits dans le buffer sans acceder à l'embarqué
+        Input param :
+            Nom du buffer
+            Offset dans le buffer (au sens C => 0 pour acceder au premier octet du buffer)
+        Output :
+            code retour de la fonction
+            Valeur lue
+        Exemple :
+            ret, valDouble = GetULongInBuffer("SIMUL_PROC_1\\PUBLIC::shortBuffer0", 32)
+            if ret ~= STATUS_OK then 
+                print("error ecriture SIMUL_PROC_1\\PUBLIC::shortBuffer0")
+            else
+                print(valDouble)
+            end
+        Note1 : il n'y a pas de controle sur le parametre d'entree offset 
+                qui est un double (type numérique natif de LUA)
+                L'offset est converti dans un unsigned long "C"
+        Note2 : L'offset est un offset en octet et non en mot 32 bits
+        Note3 : La lecture dans le buffer se fait en tenant compte du type d'endian du
+                processeur
+               
+    GetFloatInBuffer
+        => lecture d'un float (32 bits format X86) dans le buffer sans acceder à l'embarqué
+        Input param :
+            Nom du buffer
+            Offset dans le buffer (au sens C => 0 pour acceder au premier octet du buffer)
+        Output :
+            code retour de la fonction
+            Valeur lue
+        Exemple :
+            ret, valDouble = GetFloatInBuffer("SIMUL_PROC_1\\PUBLIC::shortBuffer0", 64)
+            if ret ~= STATUS_OK then 
+                print("error ecriture SIMUL_PROC_1\\PUBLIC::shortBuffer0")
+            else
+                print(valDouble)
+            end
+        Note1 : il n'y a pas de controle sur le parametre d'entree offset 
+                qui est un double (type numérique natif de LUA)
+                L'offset est converti dans un unsigned long "C"
+        Note2 : L'offset est un offset en octet et non en float
+        Note3 : La lecture dans le buffer se fait en tenant compte du type d'endian du
+                processeur => je ne suis pas sur que ce soit valide pour un processeur big endian.
+               
+    LoadBufferFromFile
+        => Chargement du buffer interne d'un buffer avec le contenu d'un fichier
+        Input param :
+            Nom du buffer
+            Nom du fichier dont le contenu sera copié dans le buffer
+        Output :
+            code retour de la fonction
+        Exemple :
+            -- selection du fichier
+            file = FileOpenDialog("bin", "Binary Files (*.bin)|*.bin||")
+            if file ~= "" then
+                -- chargement du buffer avec le contenu du fichier
+                ret = LoadBufferFromFile("SIMUL_PROC_1\\PUBLIC::longBuffer0", file)
+                if ret ~= STATUS_OK then 
+                    print("error chargement buffer")
+                else
+                    -- ecriture du buffer sur l'embarque
+                    ret = WriteVariable("SIMUL_PROC_1\\PUBLIC::longBuffer0", "écriture de longBuffer0 ... patientez", 1)
+                    if ret ~= STATUS_OK then 
+                        print("error écriture variable SIMUL_PROC_1\\PUBLIC::longBuffer0")
+                    end
+                end
+            end
+        Note  : si la taille du fichier est superieure a la taille du buffer, une erreur
+                est retournee et aucune copie n'est faite (pas de troncature)
+
+    SaveBufferToFile
+        => Sauvegarde du contenu du buffer interne d'un buffer dans un fichier
+        Input param :
+            Nom du buffer
+            Nom du fichier dans lequel sera ecrit le contenu du buffer
+        Output :
+            code retour de la fonction
+        Exemple :
+            -- selection du fichier
+            file = FileSaveDialog("bin", "Binary Files (*.bin)|*.bin||")
+            if file ~= "" then
+                -- Lecture du buffer sur l'embarque
+                ret = ReadVariable("SIMUL_PROC_1\\PUBLIC::longBuffer0", "lecture de longBuffer0 ... patientez", 1)
+                if ret ~= STATUS_OK then 
+                    print("error lecture variable SIMUL_PROC_1\\PUBLIC::longBuffer0")
+                else
+                    ret = SaveBufferToFile("SIMUL_PROC_1\\PUBLIC::longBuffer0", file)
+                    if ret ~= STATUS_OK then 
+                        print("error sauvegarde buffer")
+                    end
+                end
+            end
+    
+Exécution d'une RPC
+-------------------
+    Rappel : une RPC est une fonction embarquée qui a le prototype "C" suivant
+                typedef INT32U (*T_RPC) ( INT32U inpP0
+                                        , INT32U inpP1
+                                        , INT32U inpP2
+                                        , INT32U inpP3
+                                        , INT32U inpP4
+                                        , INT32U *pOutP0
+                                        , INT32U *pOutP1
+                                        , INT32U *pOutP2
+                                        , INT32U *pOutP3
+                                        , INT32U *pOutP4
+                                        );
+    Une fonction ayant ce prototype peut être rendue visible par l'embarqué en appelant
+    la fonction MON_RegisterRPC(T_RPC rpc, INT8U *symbolName) ou <rpc> est l'adresse de cette
+    fonction et <symbolName> le nom sous laquelle la rpc apparaîtra dans le module PUBLIC
+    du processeur sous Adeview
+    C'est donc une fonction qui prend 5 paramètres en entrée et qui renvoie un code retour
+    et 5 paramètres en sortie.
+
+    ExecRPCNew
+        => exécution d'une RPC sur l'embarqué
+        Input param :
+            Nom de la RPC
+            parametres d'entrée (inpP0, inpP1, inpP2, inpP3, inpP4) qui seront passés à la RPC
+        Output :
+            code retour de la fonction (la fonction a-t-elle pu etre correctement executée sur l'embarque)
+            code retour de la RPC
+            parametres de sortie (outP0, outP1, outP2, outP3, outP4) récupérés de la RPC
+        Exemple :
+            ret, retRPC, outP0, outP1, outP1, outP3, outP4 = ExecRPCNew("SIMUL_PROC_1\\PUBLIC::RPC1", 1, 2, 3, 4, 5)
+            if ret ~= STATUS_OK then 
+                print("error execution RPC SIMUL_PROC_1\\PUBLIC::RPC1")
+            else
+                print(retRPC)
+                print(outP0)
+                print(outP1)
+                print(outP2)
+                print(outP3)
+                print(outP4)
+            end
+        Note1 : les paramètres d'entrée sont facultatifs (s'ils ne sont pas présents, ils sont remplacés par 0)
+                ex : ret, retRPC, outP0, outP1, outP1, outP3, outP4 = ExecRPCNew("SIMUL_PROC_1\\PUBLIC::RPC1", 1, 2)
+                     est équivalent à 
+                     ret, retRPC, outP0, outP1, outP1, outP3, outP4 = ExecRPCNew("SIMUL_PROC_1\\PUBLIC::RPC1", 1, 2, 0, 0, 0)
+        Note2 : en LUA, il est valide de ne pas exploiter tous les parametres de sortie
+                ex : ret, retRPC, outP0 = ExecRPC("SIMUL_PROC_1\\PUBLIC::RPC1", 1, 2)
+                    if ret ~= STATUS_OK then 
+                        print("error execution RPC SIMUL_PROC_1\\PUBLIC::RPC1")
+                    else
+                        print(retRPC)
+                        print(outP0)
+                    end
+
+    ExecRPC
+        => exécution d'une RPC sur l'embarqué
+        Même fonction que ExecRPCNew excepté concernant l'ordre des paramètres de sorties
+        => le retour de la RPC est le dernier paramètre de sortie au lieu d'etre le second
+        Exemple :
+            ret, outP0, outP1, outP1, outP3, outP4, retRPC = ExecRPC("SIMUL_PROC_1\\PUBLIC::RPC1", 1, 2, 3, 4, 5)
+            if ret ~= STATUS_OK then 
+                print("error execution RPC SIMUL_PROC_1\\PUBLIC::RPC1")
+            else
+                print(retRPC)
+                print(outP0)
+                print(outP1)
+                print(outP2)
+                print(outP3)
+                print(outP4)
+            end
+
+Accès au service de gestion des modes
+-------------------------------------
+
+    ReadProcessorMode
+        => Lecture du mode de fonctionnement d'un processeur
+        Input param :
+            Nom du processeur
+        Output :
+            code retour de la fonction
+            mode de fonctionnement courant du processeur
+        Exemple :
+            ret, mode = ReadProcessorMode("SIMUL_PROC_1")
+            if ret ~= STATUS_OK then 
+                print("error lecture du mode de SIMUL_PROC_1")
+            else
+                print(mode)
+            end
+
+    ChangeProcessorMode
+        => Changement du mode de fonctionnement d'un processeur
+        Input param :
+            Nom du processeur
+            mode de fonctionnement demande
+        Output :
+            code retour de la fonction
+        Exemple :
+            ret = ChangeProcessorMode("SIMUL_PROC_1", "AUTOTEST")
+            if ret ~= STATUS_OK then 
+                print("error changement de mode de SIMUL_PROC_1")
+            else
+                ret, mode = ReadProcessorMode("SIMUL_PROC_1")
+                if ret ~= STATUS_OK then 
+                    print("error lecture du mode de SIMUL_PROC_1")
+                else
+                    if (mode ~= "AUTOTEST") then
+                        print("changement de mode non autorise")
+                    end
+                end
+            end
+
+Accès au service de debug
+-------------------------
+
+    ReadNextProcessorDebugString
+        => lecture d'un message de debug sur le processeur
+        Input param :
+            Nom du processeur
+        Output :
+            code retour de la fonction (STATUS_NO_MORE_DBG_STRING si la pile de message était vide)
+            message de debug lue
+        Exemple :
+            ret, debugMsg = ReadNextProcessorDebugString("SIMUL_PROC_1")
+            if ret = STATUS_OK then 
+                print(debugMsg)
+            else
+                if ret ~= STATUS_NO_MORE_DBG_STRING then 
+                    print("error lecture chaine de debug sur SIMUL_PROC_1")
+                else
+                    print("plus de message")
+                end
+            end
+    
+Accès au service de gestion de l'heure
+--------------------------------------
+
+    GetDateTime
+        => lecture de l'heure d'un processeur
+        Input param :
+            Nom du processeur
+            Chaîne de formatage de la date/heure (format fonction "C" strftime)
+        Output :
+            code retour de la fonction
+            chaine de caracteres contenant la date/heure du processeur
+        Exemple :
+            ret, strDateTime = GetDateTime("SIMUL_PROC_1", "%c")
+            if ret ~= STATUS_OK then 
+                print("error lecture date/heure sur SIMUL_PROC_1")
+            else
+                print(strDateTime)
+            end
+    
+    UpdateToPCDateTime
+        => mise à l'heure d'un processeur avec l'heure courante du PC
+        Input param :
+            Nom du processeur
+        Output :
+            code retour de la fonction
+        Exemple :
+            ret = UpdateToPCDateTime("SIMUL_PROC_1")
+            if ret ~= STATUS_OK then 
+                print("error mise à l'heure de SIMUL_PROC_1")
+            else
+                -- relecture de l'heure
+                ret, strDateTime = GetDateTime("SIMUL_PROC_1", "%c")
+                if ret ~= STATUS_OK then 
+                    print("error lecture date/heure sur SIMUL_PROC_1")
+                else
+                    print(strDateTime)
+                end
+            end
+    
+Accès au service Fault
+-------------------------
+
+    AcknowledgeFaults
+        => Acquittement des défauts d'un processeur
+        Input param :
+            Nom du processeur
+        Output :
+            code retour de la fonction
+        Exemple :
+            ret = AcknowledgeFaults("SIMUL_PROC_1")
+            if ret ~= STATUS_OK then 
+                print("error acquittement des défauts de SIMUL_PROC_1")
+            end
+
+Autres fonctions
+----------------            
+
+    GetSymbolAddr
+        => recuperation de l'adresse d'un symbole
+        Input param :
+            Nom du symbole
+        Output :
+            code retour de la fonction
+            adresse du symbole
+        Exemple :
+            ret, addr = GetSymbolAddr("SIMUL_PROC_1\\PUBLIC::shortBuffer0")
+            if ret ~= STATUS_OK then 
+                print("error lecture de l'adresse de SIMUL_PROC_1\\PUBLIC::shortBuffer0")
+            else
+                print(string.format("0x%08X", addr))
+            end
+
+    SelectProcessorDialog
+        => appel de la boite de dialogue de sélection d'un processeur
+        Input param :
+            sans
+        Output :
+            chaine contentant le nom du processeur selectionné (vide si pas de selection)
+        Exemple :
+            processor = SelectProcessorDialog();
+            if processor ~= "" then
+                print(processor)
+            end
+
+    FileOpenDialog
+        => appel de la boite de dialogue standard de windows pour l'ouverture d'un fichier
+        Input param :
+            extension par defaut (string)
+            filtre de sélection (string)
+        Output :
+            chaine contentant le nom du fichier (vide si pas de selection)
+        Exemple :
+            file = FileOpenDialog("xml", "XML Files (*.xml)|*.xml||")
+            if file ~= "" then
+                print(file)
+            end
+
+    FileSaveDialog
+        => appel de la boite de dialogue standard de windows pour la sauvegarde d'un fichier
+        Input param :
+            extension par defaut (string)
+            filtre de sélection (string)
+        Output :
+            chaine contentant le nom du fichier (vide si pas de selection)
+        Exemple :
+            file = FileSaveDialog("xml", "XML Files (*.xml)|*.xml||")
+            if file ~= "" then
+                print(file)
+            end
+
+    Sleep
+        => temporisation
+        Input param :
+            valeur de la temporisation en ms
+        Output :
+            sans
+        Exemple :
+            -- attente de 2,5 sec
+            Sleep(2500)
+
+    MessageBox
+        => Affichage d'une messageBox (appel de la fonction MessageBox de l'API Windows)
+        Input param :
+            Texte de la message Box (string)
+            Titre de la messae Box (string)
+            type de la message Box (cf http://msdn.microsoft.com/en-us/library/ms645505(VS.85).aspx pour les valeurs possibles - champ uType)
+        Output :
+            retour de la MessageBox (cf http://msdn.microsoft.com/en-us/library/ms645505(VS.85).aspx pour les valeurs possibles)
+        Exemple :
+            ret = MessageBox("erreur dans la fonction precedente", "erreur", 48)
+
+    Connect
+        => établissement de la connexion avec les processeurs embarqués, cette fonction
+           produit les mêmes effets que la commande "Connect" accessible depuis 
+           le menu "Connection" de l'IHM AdeView
+        Input param :
+            sans
+        Output :
+            sans
+        Exemple :
+            Connect()
+
+    Disconnect
+        => arrêt de la connexion avec les processeurs embarqués, cette fonction
+           produit les mêmes effets que la commande "Disconnect" accessible depuis 
+           le menu "Connection" de l'IHM AdeView
+        Input param :
+            sans
+        Output :
+            sans
+        Exemple :
+            Disconnect()
+

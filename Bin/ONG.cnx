@@ -1,0 +1,5 @@
+[GENERAL]
+PROJECT=ONG
+
+[DIR]
+lua=$(CnxDir)
